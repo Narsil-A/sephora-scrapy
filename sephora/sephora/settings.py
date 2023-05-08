@@ -14,7 +14,7 @@ NEWSPIDER_MODULE = "sephora.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = "USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'"
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -52,7 +52,11 @@ SPIDER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    "sephora.middlewares.SephoraDownloaderMiddleware": 543,
+   "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware": 110,
 }
+PROXY_ENABLED = True
+PROXIES = [
+    'http://37.221.112.197:44886']
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html

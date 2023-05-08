@@ -3,16 +3,28 @@ import scrapy
 from scrapy.http import HtmlResponse
 
 class SephoraSpider(scrapy.Spider):
+    allowed_domains = ['sephora.com/shop/skincare']
     name = "sephora_spider"
     start_urls = [
         'https://www.sephora.com/shop/skincare'
     ]
-    # def start_requests(self):
-    #     self.driver = webdriver.Chrome()
-    #     self.driver.get('https://www.sephora.com/shop/skincare')
-    #     body = self.driver.page_source
-    #     response = HtmlResponse(url=self.driver.current_url, body=body, encoding='utf-8')
-    #     yield scrapy.Request(url=response.url, callback=self.parse)
+    custom_settings = {
+        'FEEDS':{
+            'sephoradata.json':{'format':'json', 'overwrite':True}
+        }
+    }
+    user_agent_list = [
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.79 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2866.71 Safari/537.36',
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.0 Safari/537.36',
+        'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
+        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24',
+        'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'
+    ]
 
     def parse(self, response):
         for products in response.css('div.css-1322gsb'):

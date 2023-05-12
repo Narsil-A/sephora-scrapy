@@ -3,10 +3,10 @@ import scrapy
 from scrapy.http import HtmlResponse
 
 class SephoraSpider(scrapy.Spider):
-    allowed_domains = ['sephora.com/shop/skincare']
+    allowed_domains = ['playwright.dev/']
     name = "sephora_spider"
     start_urls = [
-        'https://www.sephora.com/shop/skincare'
+        'https://playwright.dev/'
     ]
     custom_settings = {
         'FEEDS':{
@@ -27,7 +27,10 @@ class SephoraSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        for products in response.css('div.css-1322gsb'):
+
+        products = response.css('div.css-1322gsb')
+
+        for product in products:
             try:
                 yield{
                     'name': products.css('span.css-bpsjlq eanm77i0::text').get(), 
@@ -42,10 +45,12 @@ class SephoraSpider(scrapy.Spider):
                     'price': products.css('b.css-1f35s9q::text').get(),
                     'link': products.css('a.css-klx76').attrib['href'],
                 }
-            next_page = response.css('button.css-bk5oor.e65zztl0').attrib['href']
-            if next_page is not None:
-                yield response.follow(next_page, callback=self.parse)  
 
+            next_page = response.css('button.css-bk5oor.e65zztl0').attrib['href'].get()
+
+            if next_page is not None:
+                next_page = 'https://www.sephora.com/shop/skincare' + next_page
+                yield response.follow(next_page, callback=self.parse)
 
 
 

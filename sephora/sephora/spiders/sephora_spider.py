@@ -3,10 +3,10 @@ import scrapy
 from scrapy.http import HtmlResponse
 
 class SephoraSpider(scrapy.Spider):
-    allowed_domains = ['playwright.dev/']
+    allowed_domains = ['sephora.com']
     name = "sephora_spider"
     start_urls = [
-        'https://playwright.dev/'
+        'https://www.sephora.com/shop/skincare'
     ]
     custom_settings = {
         'FEEDS':{
@@ -21,17 +21,17 @@ class SephoraSpider(scrapy.Spider):
         for product in products:
             try:
                 yield{
-                    'name': products.css('span.css-bpsjlq eanm77i0::text').get(), 
-                    'description': products.css('span.ProductTile-name.css-h8cc3p.eanm77i0::text').get(),
-                    'price': products.css('b.css-1f35s9q::text').get(),
-                    'link': products.css('a.css-klx76').attrib['href'],
+                    'name': product.css('span.css-bpsjlq.eanm77i0::text').get(), 
+                    'description': product.css('span.ProductTile-name.css-h8cc3p.eanm77i0::text').get(),
+                    'price': product.css('b.css-1f35s9q::text').get(),
+                    'link': product.css('a.css-klx76').attrib['href'],
                 }
             except:
                 yield{
-                    'name': products.css('span.css-bpsjlq eanm77i0::text').get(), 
-                    'description': products.css('span.ProductTile-name.css-h8cc3p.eanm77i0::text').get(),
-                    'price': products.css('b.css-1f35s9q::text').get(),
-                    'link': products.css('a.css-klx76').attrib['href'],
+                    'name': product.css('span.css-bpsjlq eanm77i0::text').get(), 
+                    'description': product.css('span.ProductTile-name.css-h8cc3p.eanm77i0::text').get(),
+                    'price': product.css('b.css-1f35s9q::text').get(),
+                    'link': product.css('a.css-klx76').attrib['href'],
                 }
 
             next_page = response.css('button.css-bk5oor.e65zztl0').attrib['href'].get()

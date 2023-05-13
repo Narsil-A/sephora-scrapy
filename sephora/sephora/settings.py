@@ -11,6 +11,13 @@ BOT_NAME = "sephora"
 
 SPIDER_MODULES = ["sephora.spiders"]
 NEWSPIDER_MODULE = "sephora.spiders"
+FEEDS = {
+   'sephoradata.json':{'format':'json',}
+}
+SCRAPEOPS_API_KEY = '9ca119c4-77e6-4eaa-b201-dabff88dd9eb'
+SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = 'http://headers.scrapeops.io/v1/user-agents?'
+SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
+SCRAPEOPS_NUM_RESULTS = 50
 
 
 # # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -52,7 +59,7 @@ SPIDER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    "sephora.middlewares.SephoraDownloaderMiddleware": 543,
-   "scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware": 110,
+   "sephora.middlewares.ScrapeOpsFaseUserAgentMiddleware": 400,
 }
 # PROXY_ENABLED = True
 # PROXIES = [

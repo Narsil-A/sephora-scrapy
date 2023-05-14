@@ -25,14 +25,17 @@ SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
 
 SCRAPEOPS_NUM_RESULTS = 5
 
-ROTATING_PROXY_LIST = [
-   '67.227.147.136:3128',
-   '198.98.49.197:30346',
-   '198.8.94.170:4145',
-   '136.49.189.2:8080',
-   '149.20.253.104:12551',
-]
+# ROTATING_PROXY_LIST = [
+#    '67.227.147.136:3128',
+#    '198.98.49.197:30346',
+#    '198.8.94.170:4145',
+#    '136.49.189.2:8080',
+#    '149.20.253.104:12551',
+# ]
 
+PROXY_USER = 'asdasdasd'
+PROXY_PASSWORD = '124545784'
+PROXY_ENDPOINT = '7000'
 
 # # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -74,8 +77,8 @@ ROBOTSTXT_OBEY = False
 DOWNLOADER_MIDDLEWARES = {
    # "sephora.middlewares.SephoraDownloaderMiddleware": 543,
    'sephora.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware': 400,
-   'rotating_proxies.middlewares.RotatingProxyMiddleware':610,
-   'rotating_proxies.middlewares.BanDetectionMiddleware':620,
+   # 'rotating_proxies.middlewares.RotatingProxyMiddleware':610,
+   # 'rotating_proxies.middlewares.BanDetectionMiddleware':620,
 
 }
 # PROXY_ENABLED = True
